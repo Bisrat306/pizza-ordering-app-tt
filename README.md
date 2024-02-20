@@ -11,20 +11,40 @@ The Pizza Ordering App is a web application that allows users to browse a menu, 
 - Place and manage orders.
 - Track the status of orders in real-time.
 - Admin panel for managing menu items and orders.
+ 
+## System Architecture Overview
 
-## Technologies Used
+The Pizza Ordering App follows a modern and scalable architecture. The system is designed to be modular, with separate services for frontend, backend, and databases, providing scalability, maintainability, and ease of development.
+
+### Technologies Used
 
 - **Frontend:**
-  - NextJS: A JavaScript library for building user interfaces.
-  - Redux: A state management library for React applications.
-  - Mantine: A React component library for modern web applications.
+  - React: A declarative, efficient, and flexible JavaScript library for building user interfaces.
+  - Next.js: A React framework for server-side rendering, static site generation, and modern frontend development.
 
 - **Backend:**
-  - Nest.js: A JavaScript runtime for server-side development.
-  - Typeorm: TypeORM is an Object Relational Mapper.
+  - NestJS: A progressive Node.js framework for building efficient, scalable, and maintainable server-side applications.
+  - Socket.IO: A library that enables real-time, bidirectional, and event-based communication between clients and servers.
 
-- **Database:**
-  - Postgres: An Open Source SQL Database.
+- **Databases:**
+  - PostgreSQL: A powerful, open-source relational database system.
+  - Redis: An in-memory data structure store, used for caching and real-time data processing.
+
+### Advantages of the System Architecture
+
+1. **Scalability:**
+   - The architecture allows for individual services to scale independently based on demand.
+   - Use of Redis for caching enhances performance and scalability.
+
+2. **Real-time Communication:**
+   - Socket.IO enables real-time communication between the server and clients, providing instant updates on order status.
+
+3. **Reliability and Maintainability:**
+   - NestJS, with its modular structure and TypeScript support, enhances code maintainability and facilitates easier bug detection.
+   - PostgreSQL ensures data integrity and reliability for transactional data.
+
+4. **Flexibility:**
+   - Next.js provides flexibility with server-side rendering and static site generation, optimizing performance and SEO.
 
 ## Configuration
 
