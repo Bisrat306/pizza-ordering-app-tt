@@ -53,8 +53,3 @@ The Pizza Ordering App is a web application that allows users to browse a menu, 
     -run command
 9. Finally Run the application: `npm run start:dev`. application will be served on port 5000
 
-## Usage
-
-- Visit the live application [here](#) (replace with your deployment link).
-
-
