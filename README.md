@@ -73,6 +73,10 @@ The Pizza Ordering App follows a modern and scalable architecture. The system is
     -run command
 9. Finally Run the application: `npm run start:dev`. application will be served on port 5000
 
+## Links
+User - `http://localhost:3000`
+Admin = `http://localhost:3000/orders`
+
 ## Authors
 
 - [@bisrat306](https://www.github.com/bisrat306)
