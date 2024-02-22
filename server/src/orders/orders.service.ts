@@ -9,6 +9,7 @@ import { Status } from './entities/Status.entity';
 import { OrderItems } from './entities/OrderItems.entity';
 import { ItemTypes } from 'src/items/entities/ItemTypes.entity';
 import { PaginationParam } from './dto/pagination.dto';
+import { StateTransitionService } from './state-transition.service';
 
 @Injectable()
 export class OrdersService {
@@ -110,7 +111,7 @@ export class OrdersService {
   }
 
   /**
-   * Updates status of an order checking state valididty
+   * Checks and Updates status of an order checking state valididty
    * @param params
    */
   async updateStatus(params: UpdateOrderDto) {
@@ -119,43 +120,20 @@ export class OrdersService {
       where: { id: +id },
       relations: ['orderItems.itemTypes.itemImages', 'status'],
     });
-    if (!order) return { message: 'Order doesnt exsit', data: [] };
+
+    if (!order) return { message: 'Order doesn\'t exist', data: [] };
+
+
     const status = await this.statusRepository.findOne({
-      where: { id: newStatus },
+      where: { id: newStatus},
     });
-    console.log({ status });
-    switch (order.status.name) {
-      case OrderStatus.PENDING:
-        if (status.name === OrderStatus.IN_PREPARATION) {
-          order.status = status;
-        } else if (status.name === OrderStatus.CANCELLED) {
-          order.status = status;
-        }
-        break;
 
-      case OrderStatus.IN_PREPARATION:
-        if (status.name === OrderStatus.READY_FOR_PICKUP) {
-          order.status = status;
-        } else if (status.name === OrderStatus.CANCELLED) {
-          order.status = status;
-        }
-        break;
+    if (!status) return { message: 'Status doesn\'t exist', data: [] };
 
-      case OrderStatus.READY_FOR_PICKUP:
-        if (status.name === OrderStatus.COMPLETED) {
-          order.status = status;
-        }
-        break;
-
-      // Additional cases
-
-      default:
-        throw new Error(
-          `Invalid state transition from ${order.status} to ${newStatus}`,
-        );
-    }
+    StateTransitionService.performTransition(order, status.name);
 
     await this.ordersRepository.save(order);
+
     return {
       message: 'Order status update',
       data: await this.ordersRepository.findOne({
@@ -164,7 +142,6 @@ export class OrdersService {
       }),
     };
   }
-
   /**
    * takes order details, calculates total and updats DB
    * @param params
